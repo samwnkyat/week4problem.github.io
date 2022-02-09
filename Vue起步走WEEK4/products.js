@@ -68,25 +68,7 @@ const app = createApp({
             }
 
         },
-        updateProduct() {
-            let url = `${this.apiUrl}/api/${this.apiPath}/admin/product`;
-            let method = 'post';
-            if (!this.isNew) {
-                url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
-                method = 'put';
-            }
-            axios[method](url, { data: this.tempProduct })
-                .then(res => {
-                    console.log(res);
-                    this.getProduct();
-                    productModal.hide();
-                })
-                .catch((err) => {
-                    alert(err.data.message);
-                });
 
-
-        },
         delProduct() {
             let url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
 
@@ -113,8 +95,24 @@ const app = createApp({
     }
 });
 app.component('productModal', {
-    PaymentResponse: ['tempProduct'],
-    template: '#templateForProductModal'
+    props: ['tempProduct'],
+    template: '#templateForProductModal',
+    methods: {
+        updateProduct() {
+            let url = `${this.apiUrl}/api/${this.apiPath}/admin/product`;
+            let method = 'post';
+            if (!this.isNew) {
+                url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
+                method = 'put';
+            }
+            axios[method](url, { data: this.tempProduct })
+                .then(res => {
+                    console.log(res);
+                    this.$emit('get-products')
+                    productModal.hide();
+                });
+        },
+    }
 })
 
 app.mount('#app');

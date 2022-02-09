@@ -72,7 +72,7 @@
         <!-- Modal -->
         <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
             aria-hidden="true">
-            <product-modal :temp-product="tempProduct"></product-modal>
+            <product-modal :temp-product="tempProduct" v-on:get-products="getProduct"></product-modal>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -124,8 +124,7 @@
                 <div class="modal-content border-0">
                     <div class="modal-header bg-dark text-white">
                         <h5 id="productModalLabel" class="modal-title">
-                            <span v-if="isNew">新增產品</span>
-                            <span v-else>編輯產品</span>
+                            <span>新增產品</span>
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
